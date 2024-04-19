@@ -7,30 +7,28 @@
 
 
     <body>
-        <div id="app" class="flex justify-center flex-col mt-16">
-            <div class="flex items-center flex-col  ">
-                <div class="form-control">
+        <div id="app" class="flex justify-center flex-col mt-[10%]">
+            
+            <div class="flex justify-center">
+                <div class="flex gap-40">
+                    <label class="input input-bordered flex items-center">
+                        <input type="text" class="grow" placeholder="New assignment" @keyup.enter="storeAssignement" v-model="new_assignment" />
+                        <kbd class="kbd kbd-sm">↵</kbd>
+                    </label>
+
                     <label class="label cursor-pointer">
                         <span class="label-text mx-5">Show Completed tasks</span> 
                         <input type="checkbox" class="toggle" v-model="display"/>
                     </label>
+    
                 </div>
-                
-                <div class="divider w-300 w-4/12 m-auto my-5"></div>
-   
-                <section>
-                    <label class="input input-bordered flex items-center gap-2">
-                        <input type="text" class="grow" placeholder="New assignment" @keyup.enter="storeAssignement" v-model="new_assignment" />
-                        <kbd class="kbd kbd-sm">↵</kbd>
-                    </label>
-                </section>
             </div>
 
-            <div class="divider w-300 w-4/12 m-auto my-5"></div>
+            <div class="divider w-300 w-full m-auto my-5"></div>
 
             <div class="flex justify-center gap-10 mt-10 ">
                 <section class="mt-0 basis-1/3">
-                    <h1 class="flex  items-center gap-4 text-3xl">To do <div class="badge badge-ghost">{{todoAssignment.length}}</div></h1>
+                    <h1 class="flex items-center gap-4 text-3xl mb-3">To do <div class="badge badge-ghost">{{todoAssignment.length}}</div></h1>
                     <div class="grid h-64 place-items-center text-base-300 text-2xl" v-if="!todoAssignment.length">Wow! Empty ∅</div>
                     <ul>
                         <li v-for="assignment in todoAssignment" :key="assignment.id">
@@ -42,7 +40,7 @@
                 <div class="divider lg:divider-horizontal min-h-52" v-if="display"></div> 
 
                 <section :class="! display ? 'hidden' : '' " class="basis-1/3">
-                    <h1 class="flex items-center gap-4 text-3xl">Completed <div class="badge badge-ghost">{{completedAssignment.length}}</div></h1>
+                    <h1 class="flex items-center gap-4 text-3xl mb-3">Completed <div class="badge badge-ghost">{{completedAssignment.length}}</div></h1>
                     <div class="grid h-64 place-items-center text-base-300 text-2xl" v-if="!completedAssignment.length">Empty ∅</div>
                     <ul>
                         <li v-for="assignment in completedAssignment" :key="assignment.id">
