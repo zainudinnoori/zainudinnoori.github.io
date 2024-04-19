@@ -32,7 +32,7 @@
                     <div class="grid h-64 place-items-center text-base-300 text-2xl" v-if="!todoAssignment.length">Wow! Empty ∅</div>
                     <ul>
                         <li v-for="assignment in todoAssignment" :key="assignment.id">
-                            <label class="label cursor-pointer"> {{ assignment.name }} {{assignment.id}}<input type="checkbox" class="mx-4 checkbox checkbox-primary" v-model="assignment.completed"></label>
+                            <label class="label cursor-pointer"> {{ assignment.name }}<input type="checkbox" class="mx-4 checkbox checkbox-primary" v-model="assignment.completed"></label>
                         </li>
                     </ul>
                 </section>
