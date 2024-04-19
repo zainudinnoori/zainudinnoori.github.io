@@ -11,15 +11,18 @@
             
             <div class="flex justify-center">
                 <div class="flex gap-40">
-                    <label class="input input-bordered flex items-center">
-                        <input type="text" class="grow" placeholder="New assignment" @keyup.enter="storeAssignement" v-model="new_assignment" />
-                        <kbd class="kbd kbd-sm">↵</kbd>
-                    </label>
+
+                    <div class="join">
+                        <button class="btn btn-warning" @click="clearAssignments">Clear list</button>
+                        <input class="input input-bordered join-item" placeholder="New assignment" @keyup.enter="storeAssignment" v-model="new_assignment" />
+                        <button class="btn join-item rounded-r-full" @click="storeAssignment">Add</button>
+                    </div>
 
                     <label class="label cursor-pointer">
                         <span class="label-text mx-5">Show Completed tasks</span> 
                         <input type="checkbox" class="toggle" v-model="display"/>
                     </label>
+
     
                 </div>
             </div>
@@ -71,10 +74,13 @@
                     toggleDisplay(){
                         this.display = ! this.display
                     },
-                    storeAssignement(){
+                    storeAssignment(){
                         if(this.new_assignment)
                             this.assignments.push({name: this.new_assignment, completed: false, id: this.assignments.length + 1})
                         this.new_assignment = ""
+                    },
+                    clearAssignments(){
+                        this.assignments.length = 0
                     }
                 },
                 computed:{
