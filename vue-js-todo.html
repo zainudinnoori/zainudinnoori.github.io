@@ -1,0 +1,93 @@
+<html data-theme="corporate">
+    <head>
+        <script src="https://unpkg.com/vue@3"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+
+
+    <body>
+        <div id="app" class="flex justify-center flex-col mt-16">
+            <div class="flex items-center flex-col  ">
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                        <span class="label-text mx-5">Show Completed tasks</span> 
+                        <input type="checkbox" class="toggle" v-model="display"/>
+                    </label>
+                </div>
+                
+                <div class="divider w-300 w-4/12 m-auto my-5"></div>
+   
+                <section>
+                    <label class="input input-bordered flex items-center gap-2">
+                        <input type="text" class="grow" placeholder="New assignment" @keyup.enter="storeAssignement" v-model="new_assignment" />
+                        <kbd class="kbd kbd-sm">↵</kbd>
+                    </label>
+                </section>
+            </div>
+
+            <div class="divider w-300 w-4/12 m-auto my-5"></div>
+
+            <div class="flex justify-center gap-10 mt-10 ">
+                <section class="mt-0 basis-1/3">
+                    <h1 class="flex  items-center gap-4 text-3xl">To do <div class="badge badge-ghost">{{todoAssignment.length}}</div></h1>
+                    <div class="grid h-64 place-items-center text-base-300 text-2xl" v-if="!todoAssignment.length">Wow! Empty ∅</div>
+                    <ul>
+                        <li v-for="assignment in todoAssignment" :key="assignment.id">
+                            <label class="label cursor-pointer"> {{ assignment.name }} {{assignment.id}}<input type="checkbox" class="mx-4 checkbox checkbox-primary" v-model="assignment.completed"></label>
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="divider lg:divider-horizontal min-h-52" v-if="display"></div> 
+
+                <section :class="! display ? 'hidden' : '' " class="basis-1/3">
+                    <h1 class="flex items-center gap-4 text-3xl">Completed <div class="badge badge-ghost">{{completedAssignment.length}}</div></h1>
+                    <div class="grid h-64 place-items-center text-base-300 text-2xl" v-if="!completedAssignment.length">Empty ∅</div>
+                    <ul>
+                        <li v-for="assignment in completedAssignment" :key="assignment.id">
+                            <label class="label cursor-pointer line-through"> {{ assignment.name }} <input type="checkbox" class="mx-4 checkbox checkbox-primary" v-model="assignment.completed"></label>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            
+        </div>
+        
+        <script>
+            Vue.createApp({
+                data(){
+                    return { 
+                        assignments: [
+                        {name: "Hunt Down the Wild Bugs!", completed: false, id: 1},
+                        {name: "Send Your Variables on a Beach Trip.", completed: false, id: 2},
+                        {name: "Choreograph a Dance Routine for Each Function.", completed: false, id: 3},
+                        {name: "Duel with Syntax Errors in the Wild West.", completed: false, id: 4},
+                        {name: "Explore the Dungeon of SQL Queries", completed: false, id: 5},
+                        {name: "Rescue Princess API from the Tower of Legacy Code.", completed: false, id: 6},
+                    ],
+                    display: true,
+                    new_assignment : ""
+                }},
+                methods:{
+                    toggleDisplay(){
+                        this.display = ! this.display
+                    },
+                    storeAssignement(){
+                        if(this.new_assignment)
+                            this.assignments.push({name: this.new_assignment, completed: false, id: this.assignments.length + 1})
+                        this.new_assignment = ""
+                    }
+                },
+                computed:{
+                    todoAssignment(){ return this.assignments.filter(assignment => ! assignment.completed)},
+                    completedAssignment(){ return this.assignments.filter(assignment => assignment.completed)},
+                },
+                mounted(){
+                    // new_assignment = ""
+                }
+                    
+            }).mount('#app')
+        </script>
+    </body>
+</html>
